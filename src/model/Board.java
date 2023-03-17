@@ -4,12 +4,16 @@ import java.util.Iterator;
 import java.util.NoSuchElementException;
 import java.util.Objects;
 
-public class Board<T extends Node> implements Iterable<TileNode> {
+public class Board<T extends Node> implements Runnable{
 
 	private TileNode root;
 	private int size;
 	private int rows;
 	private int columns;
+
+	public void run(){
+
+	}
 
 	public Board(int rows, int columns){
 		root = new TileNode(0);
@@ -17,28 +21,6 @@ public class Board<T extends Node> implements Iterable<TileNode> {
 		this.columns = columns;
 		size = rows * columns;
 		generateBoard(rows, columns);
-	}
-
-	@Override
-	public Iterator<TileNode> iterator() {
-		return new Iterator<TileNode>() {
-			private TileNode current = root;
-
-			@Override
-			public boolean hasNext() {
-				return current != null;
-			}
-
-			@Override
-			public TileNode next() {
-				if (!hasNext()) {
-					throw new NoSuchElementException();
-				}
-				TileNode next = current;
-				current = (TileNode) current.getNext();
-				return next;
-			}
-		};
 	}
 
 	public TileNode getRoot() {
@@ -133,9 +115,6 @@ public class Board<T extends Node> implements Iterable<TileNode> {
 			player.setPosition(Objects.requireNonNullElseGet(snakeDest, () -> Objects.requireNonNullElse(ladderDest, current)).getTileNumber());
 		}
 	}
-
-
-
 
 	//TODO refine this method
 	private void deleteAll(TileNode node) {

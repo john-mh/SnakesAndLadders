@@ -4,11 +4,11 @@ public class TreeNode extends Node implements Comparable<TreeNode>{
 
     private TreeNode left;
     private TreeNode right;
-    private int score;
+    private int score = 0;
 
     //playerSymbol is yet to be implemented
-    public TreeNode(char playerSymbol, int score) {
-        this.score = score;
+    public TreeNode(char playerSymbol) {
+
     }
 
 
@@ -30,6 +30,10 @@ public class TreeNode extends Node implements Comparable<TreeNode>{
 
     public int getScore() {
         return score;
+    }
+
+    public void setScore(int score) {
+        this.score = score;
     }
 
 
