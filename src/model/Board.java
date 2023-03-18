@@ -4,16 +4,12 @@ import java.util.Iterator;
 import java.util.NoSuchElementException;
 import java.util.Objects;
 
-public class Board<T extends Node> implements Runnable{
+public class Board<T extends Node>{
 
 	private TileNode root;
 	private int size;
 	private int rows;
 	private int columns;
-
-	public void run(){
-
-	}
 
 	public Board(int rows, int columns){
 		root = new TileNode(0);

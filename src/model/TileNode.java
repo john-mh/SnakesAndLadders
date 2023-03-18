@@ -21,9 +21,11 @@ public class TileNode extends Node{
 		return super.getPlayers();
 	}
 
+	/*
 	public void setPlayersInTile(Player player, int index) {
 		super.addPlayers(player, index);
 	}
+	 */
 
 	public TileNode getSnakeDestination() {
 		return snakeDestination;

@@ -12,17 +12,52 @@ public class SnakesAndLadders {
     public static Game game;
 
     public static void main(String[] args) {
-        /*
-        game = new Game(5,6);
-        System.out.println(game.displayBoard());
-        */
+        boolean out=false;
+        while(true){
+            System.out.println("-----Snakes & Ladders-----");
+            System.out.println("1. Play");
+            System.out.println("2. out");
+            int sel = sc.nextInt();
+            switch (sel){
+                case 1:
+                    break;
+                case 2: out=true;
+                    break;
+            }
+        }
     }
 
-    public static void startGame(){}
+    public static void startGame(){
+        System.out.println("Enter the number of columns");
+        int columns = sc.nextInt();
+        System.out.println("Enter the number of rows");
+        int rows = sc.nextInt();
+        game.initializeLadders(columns*rows, rows, 0);
+        game(columns);
+    }
+
+    public static void game(int columns){
+        displayBoard(columns);
+        System.out.println("Player "+""+"turn");
+        System.out.println("1. Throw dice");
+        System.out.println("2. See ladders and snakes");
+        int sel= sc.nextInt();
+        switch (sel){
+            case 1:
+                int dice=game.throwDice();
+                System.out.println("Dice: "+dice);
+                game.movePlayer(dice);
+                break;
+            case 2:
+                break;
+        }
+    }
 
     public static void endGame(){}
 
-    public static void displayBoard(){}
+    public static void displayBoard(int columns){
+        System.out.println(game.printBoard(columns));
+    }
 
     public static void setScore(){}
 
