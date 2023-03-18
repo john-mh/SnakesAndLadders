@@ -19,9 +19,21 @@ public class Game {
 	}
 
 	public String printBoard(){
-		return board.printBoard();
+		StringBuilder boardString = new StringBuilder(" ");
+		return printBoard(board.getRoot(), boardString, board.getColumns(), 0).toString();
 	}
 
+	private StringBuilder printBoard(TileNode root, StringBuilder board, int columns, int i) {
+		board.append("[").append(root).append("]");
+		if(root.getNext()!=null){
+			if(i==columns){
+				board.append("\n");
+				i=-1;
+			}
+			printBoard((TileNode) root.getNext(), board, columns, i+1);
+		}
+		return board;
+	}
 
 	public void initializeLadders(int boardSize, int rows, int i){
 		if(rows>i){

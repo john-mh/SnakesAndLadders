@@ -56,7 +56,7 @@ public class SnakesAndLadders {
     public static void endGame(){}
 
     public static void displayBoard(int columns){
-        System.out.println(game.printBoard(columns));
+        System.out.println(game.printBoard());
     }
 
     public static void setScore(){}
