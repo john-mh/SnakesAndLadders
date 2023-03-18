@@ -13,18 +13,18 @@ public class SnakesAndLadders {
 
     public static void main(String[] args) {
         boolean out=false;
-        while(true){
+        do{
             System.out.println("-----Snakes & Ladders-----");
             System.out.println("1. Play");
             System.out.println("2. out");
             int sel = sc.nextInt();
             switch (sel){
-                case 1:
-                    break;
-                case 2: out=true;
-                    break;
+                case 1 -> startGame();
+                case 2 -> out=true;
+                default -> throw new IllegalArgumentException("Invalid option");
             }
-        }
+        } while(true);
+
     }
 
     public static void startGame(){

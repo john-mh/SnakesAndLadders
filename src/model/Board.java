@@ -7,9 +7,9 @@ import java.util.Objects;
 public class Board<T extends Node>{
 
 	private TileNode root;
-	private int size;
-	private int rows;
-	private int columns;
+	private final int size;
+	private final int rows;
+	private final int columns;
 
 	public Board(int rows, int columns){
 		root = new TileNode(0);
@@ -53,6 +53,23 @@ public class Board<T extends Node>{
 			throw new IndexOutOfBoundsException("Index out of bounds: " + index);
 		}
 		return getTileRecursive(root, index);
+	}
+
+	public String printBoard(){
+		StringBuilder boardString = new StringBuilder(" ");
+		return printBoard(getRoot(), boardString, columns, 0).toString();
+	}
+
+	private StringBuilder printBoard(TileNode root, StringBuilder board, int columns, int i) {
+		board.append("[").append(root).append("]");
+		if(root.getNext()!=null){
+			if(i==columns){
+				board.append("\n");
+				i=-1;
+			}
+			printBoard((TileNode) root.getNext(), board, columns, i+1);
+		}
+		return board;
 	}
 
 	private TileNode getTileRecursive(TileNode currentTile, int index) {

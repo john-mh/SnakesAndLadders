@@ -11,7 +11,6 @@ public class TreeNode extends Node implements Comparable<TreeNode>{
 
     }
 
-
     public Node getLeft() {
         return left;
     }

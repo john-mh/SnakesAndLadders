@@ -10,6 +10,7 @@ public class Game {
 	private Random rand;
 	private ScoreTree<TreeNode> scoreTree;
 	private TurnSystem turnSystem;
+	private String[] snakeName = {"a", "b", "c", "d", "e", "f", "g", "h", "i", "j", "k", "l", "m", "n", "o", "p", "q", "r", "s", "t", "u", "v", "w", "x", "y", "z"};
 
 	public Game(int rows, int columns) {
 		board = new Board<TileNode>(rows, columns);
@@ -17,22 +18,10 @@ public class Game {
 		turnSystem = new TurnSystem();
 	}
 
-	public String printBoard(int columns){
-		String boardString = " ";
-		return printBoard(board.getRoot(), boardString, columns, 0);
+	public String printBoard(){
+		return board.printBoard();
 	}
 
-	private String printBoard(TileNode root, String board, int columns, int i) {
-		board+="["+root+"]";
-		if(root.getNext()!=null){
-			if(i==columns){
-				board+="\n";
-				i=-1;
-			}
-			printBoard((TileNode) root.getNext(), board, columns, i+1);
-		}
-		return board;
-	}
 
 	public void initializeLadders(int boardSize, int rows, int i){
 		if(rows>i){
