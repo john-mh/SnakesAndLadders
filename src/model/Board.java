@@ -35,6 +35,10 @@ public class Board<T extends Node>{
 		return columns;
 	}
 
+	public int getSize() {
+		return size;
+	}
+
 	public void generateBoard(int rows, int columns) {
 		generateBoardRecursive(root, size);
 	}
@@ -104,16 +108,7 @@ public class Board<T extends Node>{
 	public void addGameObject(GameObject gameObject) {
 		TileNode startTile = searchTileByID(0, gameObject.getStartPoint());
 		TileNode endTile = searchTileByID(0, gameObject.getEndPoint());
-
-		if (startTile == null || endTile == null) {
-			throw new IllegalArgumentException("Invalid start or end position");
-		}
-
-		if (gameObject instanceof Ladder) {
-			startTile.setLadderDestination(endTile);
-		} else {
-			startTile.setSnakeDestination(endTile);
-		}
+		startTile.setDestination(endTile);
 	}
 
 	public void movePlayer(Player player, int steps) {
@@ -123,22 +118,34 @@ public class Board<T extends Node>{
 		if(newTile >= size) {
 			player.setPosition(size);
 		} else {
-
 			TileNode current = searchTileByID(0, newTile);
-			// Check for Snakes and Ladders and move the player accordingly
-			TileNode snakeDest = current.getSnakeDestination();
-			TileNode ladderDest = current.getLadderDestination();
-			current.addPlayerToTile(player);
-			player.setPosition(Objects.requireNonNullElseGet(snakeDest, () -> Objects.requireNonNullElse(ladderDest, current)).getTileNumber());
+			if(current.getGameObject() != null) {
+				// If the tile has a game object, move the player to the destination tile
+				TileNode dest = current.getDestination();
+				current.addPlayerToTile(player);
+				player.setPosition(dest.getTileNumber());
+			} else {
+				// If the tile has no game object, move the player to the new tile
+				current.addPlayerToTile(player);
+				player.setPosition(current.getTileNumber());
+			}
 		}
 	}
 
 	//TODO refine this method
+
+	public void deleteAll() {
+		deleteAll(root);
+	}
+
 	private void deleteAll(TileNode node) {
 		if (node == null) {
 			return;
 		}
-		deleteAll((TileNode) node.getNext());
-		node.setNext(null);
+		if(node.getNext() != null){
+			deleteAll((TileNode) node.getNext());
+			node.setNext(null);
+		}
+
 	}
 }

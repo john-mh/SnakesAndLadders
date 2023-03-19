@@ -1,9 +1,8 @@
 package model;
 
-public class ScoreTree<T extends Node> {
+public class ScoreTree<T> {
 
 	private TreeNode root;
-	private final int MAX_SIZE = 3;
 	private int currentSize ;
 
 	public ScoreTree() {
@@ -19,16 +18,14 @@ public class ScoreTree<T extends Node> {
 		this.root = root;
 	}
 
-	public void addNode(TreeNode node) throws NoMorePlayersException {
+	public void addNode(String name, int score) {
+		TreeNode node = new TreeNode(name, score);
 		if (root == null) {
 			setRoot(node);
-			currentSize++;
-		} if(currentSize == MAX_SIZE){
-			throw new NoMorePlayersException("No more players can be added");
 		} else {
 			addNode(root, node);
-			currentSize++;
 		}
+		currentSize++;
 	}
 
 	private TreeNode addNode(TreeNode current, TreeNode node) {
@@ -58,11 +55,6 @@ public class ScoreTree<T extends Node> {
 		displayDescending((TreeNode) node.getRight(), sb);
 		sb.append("Player ").append(node.getPlayerSymbol()).append(": ").append(node.getScore()).append("\n");
 		displayDescending((TreeNode) node.getLeft(), sb);
-	}
-
-
-	public Node deleteAll() {
-		throw new UnsupportedOperationException();
 	}
 }
 

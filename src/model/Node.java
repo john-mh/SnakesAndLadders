@@ -18,6 +18,10 @@ public abstract class Node {
 		return player;
 	}
 
+	public int getPlayerPosition(Player player){
+		return player.getPosition();
+	}
+
 	public void setPlayer(char symbol) {
 		this.player = new Player(symbol);
 	}
@@ -25,7 +29,6 @@ public abstract class Node {
 	public char getPlayerSymbol() {
 		return player.getSymbol();
 	}
-
 
 
 	public int getNullIndex(){

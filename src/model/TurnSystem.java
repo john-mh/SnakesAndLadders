@@ -33,5 +33,14 @@ public class TurnSystem {
 	public Player getCurrentPlayer() {
 		return players.getCurrentPlayer().getPlayer();
 	}
+
+	//a recursive method to check if the name is already taken
+	public boolean isNameTaken(char name){
+		return players.isNameTaken(name);
+	}
+
+	public boolean isGameOver(int size) {
+		return players.isGameOver(size);
+	}
 }
 

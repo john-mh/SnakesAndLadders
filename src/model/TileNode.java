@@ -2,15 +2,14 @@ package model;
 
 public class TileNode extends Node{
 
-	private TileNode snakeDestination;
-	private TileNode ladderDestination;
+	private TileNode destination;
+	private GameObject gameObject;
 	private final int tileNumber;
 
 	public TileNode(int tileNumber) {
 		this.tileNumber = tileNumber;
 		next = null;
-		snakeDestination = null;
-		ladderDestination = null;
+		destination = null;
 	}
 
 	public int getTileNumber() {
@@ -27,20 +26,20 @@ public class TileNode extends Node{
 	}
 	 */
 
-	public TileNode getSnakeDestination() {
-		return snakeDestination;
+	public TileNode getDestination() {
+		return destination;
 	}
 
-	public void setSnakeDestination(TileNode destination) {
-		this.snakeDestination = destination;
+	public void setDestination(TileNode destination) {
+		this.destination = destination;
 	}
 
-	public TileNode getLadderDestination() {
-		return ladderDestination;
+	public GameObject getGameObject() {
+		return gameObject;
 	}
 
-	public void setLadderDestination(TileNode destination) {
-		this.ladderDestination = destination;
+	public void setGameObject(GameObject gameObject) {
+		this.gameObject = gameObject;
 	}
 
 	public boolean hasPlayer(int index) {

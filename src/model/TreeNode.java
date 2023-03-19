@@ -1,17 +1,19 @@
 package model;
 
-public class TreeNode extends Node implements Comparable<TreeNode>{
+public class TreeNode implements Comparable<TreeNode>{
 
     private TreeNode left;
     private TreeNode right;
-    private int score = 0;
+    private int score;
 
     //playerSymbol is yet to be implemented
-    public TreeNode(char playerSymbol) {
-
+    public TreeNode(String name, int score) {
+        this.score = score;
+        left = null;
+        right = null;
     }
 
-    public Node getLeft() {
+    public TreeNode getLeft() {
         return left;
     }
 
@@ -19,7 +21,7 @@ public class TreeNode extends Node implements Comparable<TreeNode>{
         this.left = left;
     }
 
-    public Node getRight() {
+    public TreeNode getRight() {
         return right;
     }
 
@@ -35,12 +37,9 @@ public class TreeNode extends Node implements Comparable<TreeNode>{
         this.score = score;
     }
 
-
     @Override
     public int compareTo(TreeNode o) {
         return Integer.compare(this.getScore(), o.getScore());
     }
-
-
 }
 

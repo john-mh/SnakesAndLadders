@@ -49,6 +49,11 @@ public class SnakesAndLadders {
                 int dice=game.throwDice();
                 System.out.println("Dice: "+dice);
                 game.movePlayer(dice);
+                if(game.isGameOver()) {
+                    endGame();
+                } else {
+                    game.nextTurn();
+                }
                 break;
             case 2:
                 break;
@@ -64,7 +69,9 @@ public class SnakesAndLadders {
         System.out.println(game.printBoard());
     }
 
-    public static void setScore(int time){}
+    public static void setScore(int time){
+        game.setScore(time);
+    }
 
     public static void displayScore(){}
 

@@ -6,12 +6,11 @@ import java.util.Random;
 public class Game {
 
 	private Board<TileNode> board;
-	private ArrayList<GameObject> gameObject;
 	private Random rand;
 	private ScoreTree<TreeNode> scoreTree;
 	private TurnSystem turnSystem;
-	private String[] snakeName = {"a", "b", "c", "d", "e", "f", "g", "h", "i", "j", "k", "l", "m", "n", "o", "p", "q", "r", "s", "t", "u", "v", "w", "x", "y", "z"};
-	private char[] playerName = { '*', '!', 'O', 'X', '%', '$', '#', '+', '&'};
+	private final String[] snakeName = {"a", "b", "c", "d", "e", "f", "g", "h", "i", "j", "k", "l", "m", "n", "o", "p", "q", "r", "s", "t", "u", "v", "w", "x", "y", "z"};
+	private final char[] playerName = { '*', '!', 'O', 'X', '%', '$', '#', '+', '&'};
 
 	public Game(int rows, int columns) {
 		board = new Board<TileNode>(rows, columns);
@@ -23,50 +22,31 @@ public class Game {
 		return turnSystem.getCurrentPlayer().getSymbol();
 	}
 
-	public String printBoard(){
-		StringBuilder boardString = new StringBuilder(" ");
-		return printBoard(board.getRoot(), boardString, board.getColumns(), 0).toString();
+	public boolean isPlayerNameTaken(char name){
+		return turnSystem.isNameTaken(name);
 	}
 
-	private StringBuilder printBoard(TileNode root, StringBuilder board, int columns, int i) {
-		board.append("[").append(root).append("]");
-		if(root.getNext()!=null){
-			if(i==columns){
-				board.append("\n");
-				i=-1;
-			}
-			printBoard((TileNode) root.getNext(), board, columns, i+1);
-		}
-		return board;
+	public void nextTurn(){
+		turnSystem.nextTurn();
 	}
 
-	public void initializeLadders(int boardSize, int rows, int i){
-		if(rows>i){
-
-			int startS=(int)(Math.random()*((boardSize+1)-(2))-2);
-			int finalS=(int)(Math.random()*((boardSize+1)-(2))-2);
-			GameObject ladder = new Ladder(String.valueOf(i), startS, finalS);
-			gameObject.add(ladder);
-			board.addGameObject(ladder);
-			initializeLadders(boardSize, rows, i+1);
-		}
+	public boolean isGameOver(){
+		return turnSystem.isGameOver(board.getSize());
 	}
 
 	public void deleteAll() {
+		board.deleteAll();
+		board = null;
+		turnSystem.deleteAll();
 	}
 
 	//public boolean checkOverlap(int start, int end) {}
 
-	public boolean isNameTaken(char name){
-		return false; // TODO write this method
-	}
 
 	public void addPlayer(char symbol) {
 		turnSystem.addPlayer(symbol);
 	}
 
-	public void addGameObject() {
-	}
 
 	public void deleteGameObject() {
 	}
@@ -81,5 +61,9 @@ public class Game {
 	public int throwDice() {
 		return rand.nextInt(6) + 1;
 	}
-}
 
+	public void setScore(long time) {
+		long score = (600-time)/6;
+		scoreTree.addNode(time);
+	}
+}

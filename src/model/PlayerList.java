@@ -39,6 +39,18 @@ public class PlayerList<T extends Node> {
 		throw new UnsupportedOperationException();
 	}
 
+	public boolean isNameTaken(char name) {
+		return isNameTaken(name, head);
+	}
 
+	private boolean isNameTaken(char name, PlayerNode pointer) {
+		if(pointer.getPlayerSymbol() == name)
+			return true;
+		else return isNameTaken(name, (PlayerNode) pointer.getNext());
+	}
+
+	public boolean isGameOver(int size) {
+		return currentPlayer.getPlayerPosition(currentPlayer.getPlayer()) == size;
+	}
 }
 
