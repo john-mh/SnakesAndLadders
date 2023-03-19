@@ -6,8 +6,10 @@ public class GameObject {
 	private int endPoint;
 	private String id;
 
-	public GameObject(String aId) {
+	public GameObject(String aId, int startPoint, int endPoint) {
 		this.id = aId;
+		this.startPoint = startPoint;
+		this.endPoint = endPoint;
 	}
 
 	public int getStartPoint() {

@@ -18,22 +18,15 @@ public abstract class Node {
 		return player;
 	}
 
-	public void setPlayer(Player player) {
-		this.player = player;
+	public void setPlayer(char symbol) {
+		this.player = new Player(symbol);
 	}
 
 	public char getPlayerSymbol() {
 		return player.getSymbol();
 	}
 
-	public String addPlayer(Player player){
-		if(this.player != null)
-			return "Player already exists";
-		else {
-			this.player = player;
-			return "Player added";
-		}
-	}
+
 
 	public int getNullIndex(){
 		return getNullIndex(0);
@@ -51,18 +44,13 @@ public abstract class Node {
 		return players;
 	}
 
-	public String addPlayerToTile(Player player){
-		if (getNullIndex() == -1){
-			return "No more space for players";
-		}
-		else {
-			players[getNullIndex()] = player;
-			return "Player"+player.getSymbol()+" added";
-		}
-
+	protected Player getPlayer(int index){
+		return players[index];
 	}
 
-
+	public void addPlayerToTile(Player player){
+		players[getNullIndex()] = player;
+	}
 
 }
 

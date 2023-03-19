@@ -67,6 +67,26 @@ public class Board<T extends Node>{
 		}
 	}
 
+	public boolean isTileOccupied(TileNode node) {
+		return node.getPlayers()[0] != null;
+	}
+
+	public String getTilePlayers(TileNode node){
+		StringBuilder sb = new StringBuilder();
+		return getTilePlayersRecursive(sb, node, 0).toString();
+	}
+
+	private StringBuilder getTilePlayersRecursive(StringBuilder sb, TileNode node, int index) {
+		if (index == node.getPlayers().length  || node.getPlayers()[index] == null) {
+			return sb;
+		}
+		else{
+			sb.append(node.getPlayers()[index].getSymbol());
+			return getTilePlayersRecursive(sb, node, index + 1);
+		}
+	}
+
+
 	public TileNode searchTileByID(int index, int id){
 		TileNode currentTile = getTile(index);
 
@@ -81,33 +101,34 @@ public class Board<T extends Node>{
 		}
 	}
 
-	public void addSnakeOrLadder(int start, int end) {
-		TileNode startTile = getTile(start);
-		TileNode endTile = getTile(end);
+	public void addGameObject(GameObject gameObject) {
+		TileNode startTile = searchTileByID(0, gameObject.getStartPoint());
+		TileNode endTile = searchTileByID(0, gameObject.getEndPoint());
 
 		if (startTile == null || endTile == null) {
 			throw new IllegalArgumentException("Invalid start or end position");
 		}
 
-		if (start < end) {
-			endTile.setLadderDestination(startTile);
+		if (gameObject instanceof Ladder) {
+			startTile.setLadderDestination(endTile);
 		} else {
-			endTile.setSnakeDestination(startTile);
+			startTile.setSnakeDestination(endTile);
 		}
 	}
 
 	public void movePlayer(Player player, int steps) {
-		// Move the player forward by the given number of steps
+		// Move the player forward by the given number  of steps
 		int newTile = player.getPosition() + steps;
 
 		if(newTile >= size) {
 			player.setPosition(size);
 		} else {
 
-			TileNode current = getTile(newTile);
+			TileNode current = searchTileByID(0, newTile);
 			// Check for Snakes and Ladders and move the player accordingly
 			TileNode snakeDest = current.getSnakeDestination();
 			TileNode ladderDest = current.getLadderDestination();
+			current.addPlayerToTile(player);
 			player.setPosition(Objects.requireNonNullElseGet(snakeDest, () -> Objects.requireNonNullElse(ladderDest, current)).getTileNumber());
 		}
 	}
@@ -120,7 +141,4 @@ public class Board<T extends Node>{
 		deleteAll((TileNode) node.getNext());
 		node.setNext(null);
 	}
-
-
-
 }

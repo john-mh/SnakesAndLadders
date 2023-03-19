@@ -32,11 +32,13 @@ public class SnakesAndLadders {
         int columns = sc.nextInt();
         System.out.println("Enter the number of rows");
         int rows = sc.nextInt();
+        game = new Game(rows, columns);
         game.initializeLadders(columns*rows, rows, 0);
         game(columns);
     }
 
     public static void game(int columns){
+        i = Instant.now();
         displayBoard(columns);
         System.out.println("Player "+""+"turn");
         System.out.println("1. Throw dice");
@@ -53,13 +55,16 @@ public class SnakesAndLadders {
         }
     }
 
-    public static void endGame(){}
+    public static void endGame(){
+        d = Duration.between(i, Instant.now());
+        setScore((int) d.getSeconds());
+    }
 
     public static void displayBoard(int columns){
         System.out.println(game.printBoard());
     }
 
-    public static void setScore(){}
+    public static void setScore(int time){}
 
     public static void displayScore(){}
 

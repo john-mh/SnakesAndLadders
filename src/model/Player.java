@@ -4,8 +4,7 @@ public class Player {
 	private int position;
 	private final char symbol;
 
-	public Player(int startingPosition, char symbol) {
-		this.position = startingPosition;
+	public Player(char symbol) {
 		this.symbol = symbol;
 	}
 

@@ -2,35 +2,43 @@ package model;
 
 public class PlayerList<T extends Node> {
 
-	private Node head;
-	private Node tail;
+	private PlayerNode head;
+	private PlayerNode tail;
+	private PlayerNode currentPlayer;
 
-	public Node getHead() {
-		return this.head;
+	public PlayerNode getHead() {
+		return head;
 	}
 
-	public void setHead(Node node) {
+	public void setHead(PlayerNode node) {
 		head = node;
 	}
 
-	public void addPlayer() {
+	public PlayerNode getCurrentPlayer() {
+		return currentPlayer;
+	}
+
+	public void setCurrentPlayer(PlayerNode node) {
+		currentPlayer = node;
+	}
+
+	public void addPlayerNode(char symbol) {
+		PlayerNode node = new PlayerNode();
+		node.setPlayer(symbol);
+		if (head == null) {
+			head = node;
+		} else {
+			tail.setNext(node);
+			node.setPrev(tail);
+		}
+		tail = node;
+		tail.setNext(head);
+	}
+
+	public PlayerNode deleteAll() {
 		throw new UnsupportedOperationException();
 	}
 
-	public String getPlayerID() {
-		throw new UnsupportedOperationException();
-	}
 
-	public Node deleteAll() {
-		throw new UnsupportedOperationException();
-	}
-
-	public Node getTail() {
-		return this.tail;
-	}
-
-	public void setTail(Node tail) {
-		this.tail = tail;
-	}
 }
 
